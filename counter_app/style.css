@@ -4,6 +4,7 @@
 *::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -13,7 +14,7 @@ html {
 body {
   font-family: 'Source Code Pro', monospace;
   font-size: 1.6rem;
-  color: rgb(15, 28, 6);
+  color: #1d2e11;
 }
 
 button {
@@ -21,4 +22,70 @@ button {
   font-size: inherit;  
   border: initial;
   background-color: initial;
+  cursor: pointer;
+}
+
+.app {
+  height: 100vh;
+  background-image: radial-gradient(#345a1b, #2e3019);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.counter {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 30rem #2e3019;
+}
+.counter__container {
+  padding: 30px;
+  text-align: center;
+  background-color: #bbf742;
+  border-radius: 10px 10px 0 0;
+}
+.counter__title {
+  text-transform: uppercase;
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: .8;
+}
+.counter__number {
+  font-weight: 600;
+  font-size: 18rem;
+  line-height: 1;
+}
+.counter__reset {
+  font-size: 2.3rem;
+  color: #498420;
+  transition: all .2s;
+}
+.counter__reset:hover, 
+.counter__reset:focus {
+  transform: scale(1.05);
+  color: #447e1a;
+}
+.counter__controls {
+  display: flex;
+  flex-direction: row
+}
+.counter__control {
+  padding: 2.2rem 6rem;
+  font-size: 2.5rem;
+  color: #bbf742;
+  background-color: #1d2e11;
+  transition: all .2s;
+}
+.counter__control:hover, 
+.counter__control:focus {
+  background-color: #253d14;
+}
+.counter__control--decrease {
+  border-bottom-left-radius: 1rem;
+}
+.counter__control--increase {
+  border-bottom-right-radius: 1rem;
+  border-left: 2px solid #2a4716;
+}
+.counter__icon {
+  font-weight: 600;
 }
