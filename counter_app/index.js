@@ -1,25 +1,24 @@
 const COUNTER = (function () {  
   // Variables
   let counter = 0;
+  let counter_container_el;
+  let title_el;
   let decrease_btn;
   let increase_btn;
   let reset_btn;
   let counter_el;
-  let gopro_el;
   
   // Inits and Event Listeners
   const init = function () {
-    decrease_btn  = document.querySelector('.counter__control--decrease');
-    increase_btn  = document.querySelector('.counter__control--increase');
-    reset_btn     = document.querySelector('.counter__reset');
-    counter_el    = document.querySelector('.counter__number');
-    gopro_el      = document.querySelector('.counter__gopro');
-
-    // Hide message "Go pro"
-    gopro_el.style.visibility = 'hidden'; 
+    counter_container_el = document.querySelector('.counter__container');
+    title_el = document.querySelector('.counter__title');
+    decrease_btn = document.querySelector('.counter__control--decrease');
+    increase_btn = document.querySelector('.counter__control--increase');
+    reset_btn = document.querySelector('.counter__reset');
+    counter_el = document.querySelector('.counter__value');
 
     add_event_listeners();
-    update_counter(counter);
+    update_view();
   };
 
   const add_event_listeners = function () {
@@ -29,32 +28,37 @@ const COUNTER = (function () {
   };
 
   const decrease_timer_handler = function () {
-    if (counter === 0) return;
-
     counter = counter - 1;
-    update_view(counter);
+    update_view();
   };
 
   const increase_timer_handler = function () {
-    if (counter === 5) return;
-
     counter = counter + 1; 
-    update_view(counter);
+    update_view();
   };
 
   const reset_timer_handler = function () {
+    if (decrease_btn.disabled) decrease_btn.disabled = false;
+    if (increase_btn.disabled) increase_btn.disabled = false;
+    counter_container_el.classList.remove('counter__container--limit');
+    if (counter >= 5) title_el.innerHTML = 'Fancy counter';
+    
     counter = 0;
-    update_view(counter);
+
+    update_view();
   };
 
-  // Methods
-  const update_view = function (new_value) {
-    if (counter === 5 && gopro_el.style.visibility === 'hidden') 
-      gopro_el.style.visibility = 'visible';
-    else if (counter <= 5 && gopro_el.style.visibility === 'visible') 
-      gopro_el.style.visibility = 'hidden';
+  const update_view = function () {
+    if (counter > 5) {
+      counter = 5;
+      title_el.innerHTML = 'Limit! Buy <b>Pro</b> for >5';
+      decrease_btn.disabled = true;
+      increase_btn.disabled = true;
+      counter_container_el.classList.add('counter__container--limit');
+    } 
+    if (counter < 0) counter = 0;
     
-    counter_el.innerHTML = new_value;
+    counter_el.textContent = counter;
   }; 
 
   document.addEventListener('DOMContentLoaded', init);
