@@ -9,4 +9,41 @@
 body {
   font-family: 'Inter', sans-serif;
   font-size: 16px;
+  height: 100vh;
+  color: #fff;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: initial;
+  color: inherit;
+  background-color: initial; 
+}
+
+.app {
+  background: linear-gradient(45deg, #453c81, #7550a6);
+  display: flex;
+  justify-content: center;
+}
+.app__container {
+  display: flex;
+  width: 1000px;
+  margin: 50px 0;
+}
+
+.footer {
+  display: flex;
+}
+.footer__copyright {
+  transform-origin: bottom right;
+  transform: rotate(-90deg) translateX(350px);
+  margin-top: auto;
+  width: 350px;
+  font-size: 13px;
+}
+
+.hashtags {
+  display: flex;
+  flex-direction: column;
 }
