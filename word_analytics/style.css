@@ -100,9 +100,12 @@ textarea {
 }
 .stat--4 {}
 .stat__value {
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   color: #4c5052;
+}
+.stat__value--limit {
+  color: rgb(184, 65, 38);
 }
 .stat__label {
   font-size: 11px;
