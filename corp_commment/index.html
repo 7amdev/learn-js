@@ -6,12 +6,96 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&family=Roboto:wght@300&family=Source+Code+Pro:wght@200;400;600&display=swap" rel="stylesheet">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
+
   <link rel="stylesheet" href="style.css">
   <title>Corpcomment</title>
 </head>
-<body>
-  <h1>Corpcomment</h1>
+<body class="app">
+  <div class="app__container">
+    <footer class="footer">
+      <small class="footer__copyright">&copy; Copyright by <a href="#" class="footer__link">freesolo</a>. Intended for personal use only.</small>
+      <small class="footer__info">Not <span class="footer__info--emphasis">allowed</span> to use for commertial pourpose</small>
+    </footer>
+    <main class="main">
+      <header class="header">
+        <div class="header__container">
+          <p class="logo"><span class="logo--emphasis">Corp</span>Comment</p>
+          <h1 class="header__title">Give Feedback.<span class="header__title--emphasis">Publicly.</span></h1>
+          <form action="#" class="form">
+            <textarea 
+              class="form__textarea" 
+              placeholder="Enter your feedback here, remenber to #hastag the company">
+            </textarea>
+            <div class="form__wrapper">
+              <span class="form__count">150</span>
+              <button type="submit" class="form__submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </header>
+      <section class="feedacks">
+        <section class="feedback">
+          <button class="feedback__vote">
+            <i class="fas fa-sort-up feedback__upvote"></i>
+            <span class="feedback__count">593</span>
+          </button>
+          <div class="feedback__initial">
+            <p class="feedback__letter">S</p>
+          </div>
+          <div class="feedback__message-wrapper">
+            <p class="feedback__company">Startbucks</p>
+            <p class="feedback__message">
+              I really wish #Starbucks would use wrappers for hot drinks as a
+              standart, i keep burning my hands an am tired of bothering the 
+              employee.
+            </p>
+          </div>
+          <p class="feedback__time">4d</p>
+        </section>
+        <section class="feedback">
+          <button class="feedback__vote">
+            <i class="fas fa-sort-up feedback__upvote"></i>
+            <span class="feedback__count">593</span>
+          </button>
+          <div class="feedback__initial">
+            <p class="feedback__letter">N</p>
+          </div>
+          <div class="feedback__message-wrapper">
+            <p class="feedback__company">Netflix</p>
+            <p class="feedback__message">
+              Since yday on mobile #netflix keeps bufferig the video, it keeps 
+              happening even when i redownload the app. I'm in an area wwith decent internet connection
+            </p>
+          </div>
+          <p class="feedback__time">5d</p>
+        </section>
+      </section>
+    </main>
+    <section class="hashtags">
+      <button class="button">
+        #Nike
+      </button>
+      <button class="button">
+        #Starbucks
+      </button>
+      <button class="button">
+        #Netflix
+      </button>
+      <button class="button">
+        #Amazon
+      </button>
+      <button class="button">
+        #Microsoft
+      </button>
+      <button class="button">
+        #Adidas
+      </button>
+      <button class="button">
+        #McDonald's
+      </button>
+    </section>
+  </div>
   <script src="index.js"></script>
 </body>
 </html>
