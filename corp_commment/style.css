@@ -107,9 +107,21 @@ textarea::placeholder {
 .form {
   margin-top: 20px;
   width: 420px;
-  background-color: rgb(255 255 255 / 4%) ;
+  background-color: rgb(255 255 255 / 4%);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 10px;
   padding: 12px 20px;
+  transition: all .2s;
+}
+.form:hover, 
+.form:focus {
+  background-color: rgb(255 255 255 / 5%);
+}
+.form--error {
+  border: 1px solid #861111;
+}
+.form--success {
+  border: 1px solid #0c731f;
 }
 .form__textarea {
   width: 100%;
@@ -138,8 +150,12 @@ textarea::placeholder {
   font-weight: 600;
   font-size: 11px;
   padding: 6px 15px;
+  transition: all .2s;
 }
-
+.form__submit:hover,
+.form__submit:focus {
+  transform: scale(1.1);
+}
 
 
 
@@ -147,13 +163,23 @@ textarea::placeholder {
   color: #59595f;
 }
 .feedback {
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #dedde4;
+}
+.feedback__container {
   display: flex;
   align-items: center;
   column-gap: 18px;
   padding: 15px 30px;
-  border-bottom: 1px solid #dedde4;
-  cursor: pointer;
+  background-color: #f8f7ff;
+  transition: all .4s;
 }
+.feedback__container:hover, 
+.feedback__container:focus {
+  transform: translateX(5px);
+  background-color: transparent;
+} 
 .feedback__vote {
   padding: 5px 9px;
   border-radius: 5px;
@@ -227,5 +253,10 @@ textarea::placeholder {
   background-color: rgba(255, 255, 255, .1);
   border-radius: 50px;
   padding: 10px;
-  
+  transition: all .2s;
+}
+.button:hover,
+.button:focus {
+  transform: scale(1.1);
+  color: #fff;
 }
