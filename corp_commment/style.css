@@ -18,7 +18,21 @@ button {
   font-size: inherit;
   border: initial;
   color: inherit;
-  background-color: initial; 
+  background-color: initial;
+  cursor: pointer; 
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  border: initial;
+  outline: none;
+  background-color: initial;
+  color: inherit;
+}
+
+textarea::placeholder {
+  color: #85858c;
 }
 
 .app {
@@ -28,22 +42,190 @@ button {
 }
 .app__container {
   display: flex;
-  width: 1000px;
+  width: 770px;
   margin: 50px 0;
+  column-gap: 20px;
 }
-
 .footer {
-  display: flex;
+  position: relative;
 }
 .footer__copyright {
   transform-origin: bottom right;
-  transform: rotate(-90deg) translateX(350px);
-  margin-top: auto;
-  width: 350px;
-  font-size: 13px;
+  transform: rotate(-90deg) translateY(-340px);
+  width: 340px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 340px;
+  left: 0;
+  color: rgba(255, 255, 255, .2);
 }
+
+.main {
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f8f7ff;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 260px;
+  background-color: #18181b;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 41px rgb(0 0 0 / 50%);
+}
+.header::before {
+  content: ' ';
+  background-image: url('https://bytegrad.com/course-assets/js/1/pattern.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: .8;
+}
+.header__title {
+  margin-top: 5px;
+}
+.header__title--deemphasis {
+  color: #e4e4e4;
+  font-style: italic;
+}
+.logo {
+  margin-top: 30px;
+  font-weight: 300;
+  color: #e4e4e4;
+}
+.logo--emphasis {
+  font-weight: 500;
+  color: #fff;
+}
+.form {
+  margin-top: 20px;
+  width: 420px;
+  background-color: rgb(255 255 255 / 4%) ;
+  border-radius: 10px;
+  padding: 12px 20px;
+}
+.form__textarea {
+  width: 100%;
+  color: #a1a1a8;
+  font-size: 15px;
+  resize: none;
+  overflow: hidden;
+}
+.form__wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.form__count {
+  font-style: italic;
+  font-size: 12px;
+  color: #696969;
+  font-weight: 600;
+}
+.form__submit {
+  margin-left: auto;
+  text-transform: uppercase;
+  color: black;
+  background-color: #fff;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 6px 15px;
+}
+
+
+
+
+.feedbacks {
+  color: #59595f;
+}
+.feedback {
+  display: flex;
+  align-items: center;
+  column-gap: 18px;
+  padding: 15px 30px;
+  border-bottom: 1px solid #dedde4;
+  cursor: pointer;
+}
+.feedback__vote {
+  padding: 5px 9px;
+  border-radius: 5px;
+  transition: all .2s;
+}
+.feedback__vote:hover {
+  background-color: #f7f7f7;
+
+}
+.feedback__upvote {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  color: #cdcdcd;
+  margin-bottom: -12px;
+}
+.feedback__count {
+  font-size: 10px;
+  font-weight: 600;
+  color: #939297;
+}
+.feedback__initial-bck {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #7550a6;
+  text-align: center;
+}
+.feedback__initial {
+  font-size: 25px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 50px;
+}
+.feedback__message-wrapper {
+  width: 350px;
+}
+.feedback__company {
+  color: #939297;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.feedback__message {
+  font-size: 12px;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* start showing ellipsis when 3rd line is reached */
+  overflow: hidden;
+}
+.feedback__time {
+  font-size: 13px;
+  font-weight: 500;
+  color: #939297;
+  text-align: center;
+  margin-left: 40px;
+}
+
 
 .hashtags {
   display: flex;
   flex-direction: column;
+  row-gap: 10px
+}
+.button {
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 13px;
+  color: rgba(255, 255, 255, .6);
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 50px;
+  padding: 10px;
+  
 }
