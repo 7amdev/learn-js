@@ -54,7 +54,7 @@ const APP = (function () {
     };
 
     feedbacks_el.insertAdjacentHTML('beforeend', feedback_add(new_entry));
-    console.log(new_entry);
+
     // POST feedback 
     form_el.classList.add('form--success');
   };

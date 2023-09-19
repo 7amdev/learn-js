@@ -1,21 +1,21 @@
 const feedback_m = (function () {
-  // @todo
-  // [] generate random color index
-
   const feedbacks = [
     {
+      id: 1,
       company: "Starbucks",
       votes: 593,
       message: "I really wish #Starbucks would use wrappers for hot drinks as a standart, i keep burning my hands an am tired of bothering the employee.",
       created_at: new Date("2023-09-15T03:24:00")
     },
     {
+      id: 2,
       company: "Netflix",
       votes: 422,
       message: "Since yday on mobile #netflix keeps bufferig the video, it keeps happening even when i redownload the app. I'm in an area with decent internet connection.",
       created_at: new Date("2023-09-16T03:24:00")
     },
     {
+      id: 3,
       company: "Amazon",
       votes: 310,
       message: "Since yday on mobile #netflix keeps bufferig the video, it keeps happening even when i redownload the app. I'm in an area with decent internet connection.",
@@ -31,25 +31,30 @@ const feedback_m = (function () {
     console.log('Initialize Feedback Module...');
   };
 
-  const feedback_vote_click_handler = function () {
-    // @todo
+  const feedback_vote_click_handler = function (event) {
+    const vote_btn_el = event.currentTarget;
+    const { id } = vote_btn_el.dataset;
 
-    console.log('Vote item clicked....');
+    feedbacks.forEach(function (feedback) {
+      if (feedback.id === +id) {
+        feedback.votes++;
+        vote_btn_el.querySelector('.feedback__count').textContent = feedback.votes;
+        vote_btn_el.querySelector('.feedback__upvote').style.display = "none";
+        vote_btn_el.removeEventListener('click', feedback_vote_click_handler);
+      }
+    });
   };
 
   const feedback_template = function (data) {
     const date_diff = Date.now() - new Date(data.created_at);
-    const date_diff_in_days = Math.floor(date_diff / (1000 * 3600 * 24));
-    
-    // if date_diff < 1 label = new
-    if (date_diff_in_days < 1) 
+    const date_diff_in_days = Math.floor(date_diff / (1000 * 3600 * 24)); 
 
     if (color_idx >= colors.length) color_idx = 0;
 
     const markup = 
       `<section tabindex="0" class="feedback">
         <div class="feedback__container">
-          <button class="feedback__vote">
+          <button class="feedback__vote" data-id="${data.id}">
             <i class="fas fa-sort-up feedback__upvote"></i>
             <span class="feedback__count">${data.votes}</span>
           </button>
