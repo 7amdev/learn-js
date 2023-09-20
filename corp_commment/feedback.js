@@ -17,7 +17,7 @@ const feedback_m = (function () {
     {
       id: 3,
       company: "Amazon",
-      votes: 310,
+      votes: 593,
       message: "Since yday on mobile #netflix keeps bufferig the video, it keeps happening even when i redownload the app. I'm in an area with decent internet connection.",
       created_at: new Date("2023-09-17T03:24:00")
     }
@@ -79,9 +79,17 @@ const feedback_m = (function () {
     
     let feedback_list_markup = "";
 
-    feedbacks.forEach(function (feedback) {
-      feedback_list_markup += feedback_template(feedback);
-    });
+    feedbacks
+      .sort(function (a, b) {
+        // Descending order
+        if (a.votes > b.votes) return -1;
+        else if (a.votes < b.votes) return 1;
+        return 0;
+      })
+      .forEach(function (feedback) {
+        console.log(feedback);
+        feedback_list_markup += feedback_template(feedback);
+      });
 
     return feedback_list_markup;
   };
