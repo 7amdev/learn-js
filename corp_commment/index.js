@@ -12,6 +12,7 @@ const APP = (function () {
   
   let form_character_limit = 150;
   let feedback_vote_els;
+  let filter = {};
   
   const init = function () {
     console.log('Corpcomment intitialized...');
@@ -44,7 +45,7 @@ const APP = (function () {
   const render_feedback_ui = function () {
     //  Reset List
     feedbacks_el.innerHTML = '';
-    feedbacks_el.insertAdjacentHTML('beforeend', feedback_list());
+    feedbacks_el.insertAdjacentHTML('beforeend', feedback_list(filter));
 
     feedback_vote_els = document.querySelectorAll('.feedback__vote');
     feedback_vote_els.forEach(function (feedback_vote_btn_el) {
@@ -54,7 +55,7 @@ const APP = (function () {
           function () {
             return function (event) {
               feedback_vote_click_handler(event);
-              render_feedback_ui();
+              render_feedback_ui(filter);
             };
           }()
         ));
@@ -97,7 +98,40 @@ const APP = (function () {
   };
   
   const hashtag_click_handler = function (e) {
-    console.log(e.target.innerText.trim());
+    const current_hashtag_btn  = e.currentTarget;
+    const current_hashtag_name = current_hashtag_btn.innerText.trim().slice(1);
+    
+// for loop made all the difference, since i can RETURN 
+// out of the function controlling the execution...
+ 
+    for (let i = 0; i < hashtag_btn_els.length; i += 1) {
+      const hashtag_btn_el = hashtag_btn_els[i];
+      if (hashtag_btn_el.classList.contains('button--active')) {
+        h_name = hashtag_btn_el.innerText.trim().slice(1);
+        console.log(current_hashtag_name, h_name);
+
+        if (current_hashtag_name.toLowerCase() === h_name.toLowerCase()) {
+          hashtag_btn_el.classList.remove('button--active');
+          hashtag_btn_el.blur();
+
+          delete filter.company;
+          render_feedback_ui();
+          return;
+        }
+
+        hashtag_btn_el.classList.remove('button--active');
+      }
+    }
+
+    if (!current_hashtag_btn.classList.contains('button--active')) {
+      current_hashtag_btn.classList.add('button--active');
+      filter = {
+        ...filter,
+        company: current_hashtag_name
+      };
+    } 
+    
+    render_feedback_ui();
   };
   
   document.addEventListener('DOMContentLoaded', init);

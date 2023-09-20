@@ -248,6 +248,7 @@ textarea::placeholder {
   flex-direction: column;
   row-gap: 10px
 }
+
 .button {
   align-self: flex-start;
   font-weight: 500;
@@ -260,6 +261,10 @@ textarea::placeholder {
 }
 .button:hover,
 .button:focus {
+  transform: scale(1.1);
+  color: #fff;
+}
+.button--active {
   transform: scale(1.1);
   color: #fff;
 }

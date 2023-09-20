@@ -74,12 +74,18 @@ const feedback_m = (function () {
     return markup;
   };
 
-  const feedback_list = function () {
-    // @TODO sort by votes count before sending the markup
-    
+  const feedback_list = function (filter = {}) {    
     let feedback_list_markup = "";
+    let results = [...feedbacks];
+    const { company } = filter;
 
-    feedbacks
+    if (company) {
+      results = results.filter(function (result) {
+        return result.company.toLowerCase() === company.toLowerCase();
+      });
+    }
+        
+    results
       .sort(function (a, b) {
         // Descending order
         if (a.votes > b.votes) return -1;
@@ -87,7 +93,6 @@ const feedback_m = (function () {
         return 0;
       })
       .forEach(function (feedback) {
-        console.log(feedback);
         feedback_list_markup += feedback_template(feedback);
       });
 
