@@ -2,13 +2,15 @@ const APP = (function () {
   const { 
     feedback_list, 
     feedback_vote_click_handler,
+    feedback_get_unique_company,
     feedback_add
   } = feedback_m;
   const form_el             = document.querySelector('.form');
   const form_textarea_el    = document.querySelector('.form__textarea');
   const form_count_el       = document.querySelector('.form__count');
   const feedbacks_el        = document.querySelector('.feedbacks');
-  const hashtag_btn_els     = document.querySelectorAll('.hashtag');
+  const hashtags_el         = document.querySelector('.hashtags');
+  let hashtag_btn_els       = document.querySelectorAll('.hashtag');
   
   let form_character_limit = 150;
   let feedback_vote_els;
@@ -25,9 +27,12 @@ const APP = (function () {
     // Add event listeners
     form_el.addEventListener('submit', form_submit_handler);
     form_textarea_el.addEventListener('input', form_textarea_input_handler);    
-    hashtag_btn_els.forEach(function (hashtag_btn_el) {
-      hashtag_btn_el.addEventListener('click', hashtag_click_handler);
-    });
+    // hashtag_btn_els.forEach(function (hashtag_btn_el) {
+    //   hashtag_btn_el.addEventListener('click', hashtag_click_handler);
+    // });
+
+    render_hashtags_ui();
+
     feedback_vote_els.forEach(function (feedback_vote_btn_el) {
       feedback_vote_btn_el.addEventListener('click', (
         function () {
@@ -63,6 +68,35 @@ const APP = (function () {
     });
   };
 
+  const render_hashtags_ui = function () {
+    const companies = feedback_get_unique_company();
+
+    hashtags_el.innerHTML = '';
+    hashtags_el.insertAdjacentHTML('beforeend', hashtag_list(companies));
+
+    hashtag_btn_els = document.querySelectorAll('.hashtag');
+    hashtag_btn_els.forEach(function (hashtag_btn_el) {
+      hashtag_btn_el.addEventListener('click', hashtag_click_handler);
+    });
+  };
+  const hashtag_markup = function (company_name) {
+    const markup =  
+      `<button class="button hashtag">
+          #${company_name}
+      </button>`;
+
+      return markup;
+  };
+  const hashtag_list = function (companies) {
+    let hashtag_list = "";
+
+    companies.forEach(function (company_name) {
+      hashtag_list += hashtag_markup(company_name);
+    });
+
+    return hashtag_list;
+  };
+
   const form_submit_handler = function (event) {
     event.preventDefault();
 
@@ -86,6 +120,7 @@ const APP = (function () {
 
     const feedback_entry_markup = feedback_add(new_entry);
     render_feedback_ui();
+    render_hashtags_ui();
 
     // POST feedback 
     form_el.classList.add('form--success');

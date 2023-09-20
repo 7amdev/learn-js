@@ -102,18 +102,34 @@ const feedback_m = (function () {
 
   const feedback_add = function (new_entry) {
     new_entry.id = feedbacks.reduce(function (acc, curr_value) {
-      return curr_value > acc ? curr_value : acc;
+      const { id } = curr_value;
+
+      if (id > acc) acc = id;
+
+       return acc;
     }, 0) + 1;
-    
+
     feedbacks.push(new_entry);
+    console.log(feedbacks);
 
     return feedback_template(new_entry);
+  };
+
+  const feedback_get_unique_company = function () {
+    return (
+      feedbacks.map(function (feedback) {
+        return feedback.company;
+      }).filter(function (value, index, array) {
+        return array.indexOf(value) === index;
+      })
+    );
   };
 
   return {
     init,
     feedback_vote_click_handler,
     feedback_list,
+    feedback_get_unique_company,
     feedback_add
   };
 }());
