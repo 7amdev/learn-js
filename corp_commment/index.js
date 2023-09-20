@@ -55,7 +55,7 @@ const APP = (function () {
           function () {
             return function (event) {
               feedback_vote_click_handler(event);
-              render_feedback_ui(filter);
+              render_feedback_ui();
             };
           }()
         ));
@@ -85,7 +85,7 @@ const APP = (function () {
     };
 
     const feedback_entry_markup = feedback_add(new_entry);
-    feedbacks_el.insertAdjacentHTML('beforeend', feedback_entry_markup);
+    render_feedback_ui();
 
     // POST feedback 
     form_el.classList.add('form--success');

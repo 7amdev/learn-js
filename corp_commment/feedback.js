@@ -31,6 +31,7 @@ const feedback_m = (function () {
   };
 
   const feedback_vote_click_handler = function (event) {
+    console.log(event.currentTarget);
     const vote_btn_el = event.currentTarget;
     const { id } = vote_btn_el.dataset;
 
@@ -100,6 +101,10 @@ const feedback_m = (function () {
   };
 
   const feedback_add = function (new_entry) {
+    new_entry.id = feedbacks.reduce(function (acc, curr_value) {
+      return curr_value > acc ? curr_value : acc;
+    }, 0) + 1;
+    
     feedbacks.push(new_entry);
 
     return feedback_template(new_entry);
