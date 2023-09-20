@@ -28,7 +28,37 @@ const APP = (function () {
       hashtag_btn_el.addEventListener('click', hashtag_click_handler);
     });
     feedback_vote_els.forEach(function (feedback_vote_btn_el) {
-      feedback_vote_btn_el.addEventListener('click', feedback_vote_click_handler);
+      feedback_vote_btn_el.addEventListener('click', (
+        function () {
+          return function (event) {
+            feedback_vote_click_handler(event);
+            render_feedback_ui();
+          };
+        }()
+      ));
+    });
+
+    
+  };
+
+  const render_feedback_ui = function () {
+    //  Reset List
+    feedbacks_el.innerHTML = '';
+    feedbacks_el.insertAdjacentHTML('beforeend', feedback_list());
+
+    feedback_vote_els = document.querySelectorAll('.feedback__vote');
+    feedback_vote_els.forEach(function (feedback_vote_btn_el) {
+      const { has_voted } = feedback_vote_btn_el.dataset;
+      if (!(has_voted === 'true')) {
+        feedback_vote_btn_el.addEventListener('click', (
+          function () {
+            return function (event) {
+              feedback_vote_click_handler(event);
+              render_feedback_ui();
+            };
+          }()
+        ));
+      }
     });
   };
 
@@ -53,7 +83,8 @@ const APP = (function () {
       created_at: Date.now()
     };
 
-    feedbacks_el.insertAdjacentHTML('beforeend', feedback_add(new_entry));
+    const feedback_entry_markup = feedback_add(new_entry);
+    feedbacks_el.insertAdjacentHTML('beforeend', feedback_entry_markup);
 
     // POST feedback 
     form_el.classList.add('form--success');

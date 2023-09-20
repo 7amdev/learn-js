@@ -24,7 +24,6 @@ const feedback_m = (function () {
   ];
 
   const colors = ['#505da6', '#7550a6', '#508ba6'];
-  let feedbacks_ui = [];
   let color_idx = 0;
 
   const init = function () {
@@ -38,14 +37,13 @@ const feedback_m = (function () {
     feedbacks.forEach(function (feedback) {
       if (feedback.id === +id) {
         feedback.votes++;
-        vote_btn_el.querySelector('.feedback__count').textContent = feedback.votes;
-        vote_btn_el.querySelector('.feedback__upvote').style.display = "none";
-        vote_btn_el.removeEventListener('click', feedback_vote_click_handler);
+        feedback.has_voted = true;
       }
     });
   };
 
   const feedback_template = function (data) {
+    // @TODO Show/Hide upvote icon id has_voted is set to true
     const date_diff = Date.now() - new Date(data.created_at);
     const date_diff_in_days = Math.floor(date_diff / (1000 * 3600 * 24)); 
 
@@ -54,8 +52,12 @@ const feedback_m = (function () {
     const markup = 
       `<section tabindex="0" class="feedback">
         <div class="feedback__container">
-          <button class="feedback__vote" data-id="${data.id}">
-            <i class="fas fa-sort-up feedback__upvote"></i>
+          <button class="feedback__vote" data-id="${data.id}" ${data.has_voted ? 'data-has_voted="' + data.has_voted + '"' : ""} >
+            ${
+              !data.has_voted && 
+              '<i class="fas fa-sort-up feedback__upvote"></i>' || 
+              ''
+            }
             <span class="feedback__count">${data.votes}</span>
           </button>
           <div class="feedback__initial-bck" style="background-color: ${colors[color_idx++]};">
@@ -73,11 +75,15 @@ const feedback_m = (function () {
   };
 
   const feedback_list = function () {
+    // @TODO sort by votes count before sending the markup
+    
+    let feedback_list_markup = "";
+
     feedbacks.forEach(function (feedback) {
-      feedbacks_ui.push(feedback_template(feedback));
+      feedback_list_markup += feedback_template(feedback);
     });
 
-    return feedbacks_ui.join("");;
+    return feedback_list_markup;
   };
 
   const feedback_add = function (new_entry) {
