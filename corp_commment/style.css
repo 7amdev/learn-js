@@ -161,6 +161,7 @@ textarea::placeholder {
 
 .feedbacks {
   color: #59595f;
+  min-width: 607px;
 }
 .feedback {
   cursor: pointer;
