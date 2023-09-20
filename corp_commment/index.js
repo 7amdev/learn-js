@@ -89,6 +89,12 @@ const APP = (function () {
 
     // POST feedback 
     form_el.classList.add('form--success');
+    setTimeout(function () {
+      form_el.classList.remove('form--success');
+    }, 2000);
+
+    form_el.reset();
+    form_textarea_input_handler();
   };
 
   const form_textarea_input_handler = function (e) {
@@ -103,7 +109,7 @@ const APP = (function () {
     
 // for loop made all the difference, since i can RETURN 
 // out of the function controlling the execution...
- 
+
     for (let i = 0; i < hashtag_btn_els.length; i += 1) {
       const hashtag_btn_el = hashtag_btn_els[i];
       if (hashtag_btn_el.classList.contains('button--active')) {
