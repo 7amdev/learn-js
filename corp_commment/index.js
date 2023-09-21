@@ -5,6 +5,7 @@ const APP = (function () {
     feedback_get_unique_company,
     feedback_add
   } = feedback_m;
+  const { hashtag_list } = hashtag_m;
   const form_el             = document.querySelector('.form');
   const form_textarea_el    = document.querySelector('.form__textarea');
   const form_count_el       = document.querySelector('.form__count');
@@ -56,29 +57,12 @@ const APP = (function () {
     const companies = feedback_get_unique_company();
 
     hashtags_el.innerHTML = '';
-    hashtags_el.insertAdjacentHTML('beforeend', hashtag_list(companies));
+    hashtags_el.insertAdjacentHTML('beforeend', hashtag_list(companies, feedback_get_unique_company));
 
     hashtag_btn_els = document.querySelectorAll('.hashtag');
     hashtag_btn_els.forEach(function (hashtag_btn_el) {
       hashtag_btn_el.addEventListener('click', hashtag_click_handler);
     });
-  };
-  const hashtag_markup = function (company_name) {
-    const markup =  
-      `<button class="button hashtag">
-        #${company_name}
-      </button>`;
-
-      return markup;
-  };
-  const hashtag_list = function (companies) {
-    let hashtag_list = "";
-
-    companies.forEach(function (company_name) {
-      hashtag_list += hashtag_markup(company_name);
-    });
-
-    return hashtag_list;
   };
 
   const form_submit_handler = function (event) {
