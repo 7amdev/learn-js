@@ -92,6 +92,10 @@ const APP = (function () {
     if (!company_name || company_name.length > 1) {
       form_el.classList.remove('form--success');
       form_el.classList.add('form--error');
+
+      setTimeout(function () {
+        form_el.classList.remove('form--error');
+      }, 3000);
       return;
     }
 
