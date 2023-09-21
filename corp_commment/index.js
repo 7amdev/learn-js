@@ -10,10 +10,10 @@ const APP = (function () {
   const form_count_el       = document.querySelector('.form__count');
   const feedbacks_el        = document.querySelector('.feedbacks');
   const hashtags_el         = document.querySelector('.hashtags');
-  let hashtag_btn_els       = document.querySelectorAll('.hashtag');
   
   let form_character_limit = 150;
   let feedback_vote_els;
+  let hashtag_btn_els;
   let filter = {};
   
   const init = function () {
@@ -21,30 +21,14 @@ const APP = (function () {
 
     // Initialization
     form_count_el.textContent = form_character_limit;
-    feedbacks_el.insertAdjacentHTML('beforeend', feedback_list());
-    feedback_vote_els = document.querySelectorAll('.feedback__vote');
 
     // Add event listeners
     form_el.addEventListener('submit', form_submit_handler);
     form_textarea_el.addEventListener('input', form_textarea_input_handler);    
-    // hashtag_btn_els.forEach(function (hashtag_btn_el) {
-    //   hashtag_btn_el.addEventListener('click', hashtag_click_handler);
-    // });
-
-    render_hashtags_ui();
-
-    feedback_vote_els.forEach(function (feedback_vote_btn_el) {
-      feedback_vote_btn_el.addEventListener('click', (
-        function () {
-          return function (event) {
-            feedback_vote_click_handler(event);
-            render_feedback_ui();
-          };
-        }()
-      ));
-    });
-
-    
+ 
+    // render
+    render_feedback_ui();
+    render_hashtags_ui();    
   };
 
   const render_feedback_ui = function () {
@@ -82,7 +66,7 @@ const APP = (function () {
   const hashtag_markup = function (company_name) {
     const markup =  
       `<button class="button hashtag">
-          #${company_name}
+        #${company_name}
       </button>`;
 
       return markup;
@@ -149,7 +133,6 @@ const APP = (function () {
       const hashtag_btn_el = hashtag_btn_els[i];
       if (hashtag_btn_el.classList.contains('button--active')) {
         h_name = hashtag_btn_el.innerText.trim().slice(1);
-        console.log(current_hashtag_name, h_name);
 
         if (current_hashtag_name.toLowerCase() === h_name.toLowerCase()) {
           hashtag_btn_el.classList.remove('button--active');

@@ -31,7 +31,6 @@ const feedback_m = (function () {
   };
 
   const feedback_vote_click_handler = function (event) {
-    console.log(event.currentTarget);
     const vote_btn_el = event.currentTarget;
     const { id } = vote_btn_el.dataset;
 
@@ -110,7 +109,6 @@ const feedback_m = (function () {
     }, 0) + 1;
 
     feedbacks.push(new_entry);
-    console.log(feedbacks);
 
     return feedback_template(new_entry);
   };
