@@ -114,10 +114,11 @@ const APP = (function () {
     form_el.classList.add('form--success');
     setTimeout(function () {
       form_el.classList.remove('form--success');
-    }, 2000);
+    }, 3000);
 
     form_el.reset();
     form_textarea_input_handler();
+    form_textarea_el.focus();
   };
 
   const form_textarea_input_handler = function (e) {
