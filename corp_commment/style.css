@@ -189,6 +189,9 @@ textarea::placeholder {
   background-color: #f7f7f7;
 
 }
+.feedback__vote:hover > .feedback__upvote {
+  color: #878787;
+}
 .feedback__upvote {
   display: block;
   font-size: 20px;
