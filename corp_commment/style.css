@@ -141,17 +141,17 @@ ol {
   border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 10px;
   padding: 12px 20px;
-  transition: all .2s;
+  transition: all .3s;
 }
 .form:hover, 
 .form:focus {
   background-color: rgb(255 255 255 / 5%);
 }
-.form--valid{
-  border: 1px solid #861111;
-}
-.form--invalid {
+.form--valid {
   border: 1px solid #0c731f;
+}
+.form--invalid{
+  border: 1px solid #861111;
 }
 .form__textarea {
   width: 100%;
