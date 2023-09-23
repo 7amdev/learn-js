@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="style.css">
   <title>Corpcomment</title>
 </head>
-<body class="app">
-  <div class="app__container">
+<body>
+  <div class="body__container">
     <footer class="footer">
       <p class="footer__copyright">
         &copy; Copyright by <span class="footer__link">freesolo</span>. Intended for personal use only.
@@ -20,8 +20,10 @@
       </p>
     </footer>
     <main class="main">
-      <header class="header">
-          <p class="logo"><span class="logo--emphasis">Corp</span>Comment</p>
+      <header class="header">        
+          <a href="." class="logo">
+            <span class="logo--emphasis">Corp</span>Comment
+          </a>
           <h1 class="header__title">Give Feedback.<span class="header__title--deemphasis">Publicly.</span></h1>
           <form action="#" class="form">
             <textarea 
@@ -29,96 +31,100 @@
               spellcheck="false"
               maxlength="150"
               placeholder="Enter your feedback here, remenber to #hashtag the company"></textarea>
-            <div class="form__wrapper">
+            <div class="form__bottom">
               <span class="form__count">150</span>
               <button type="submit" class="form__submit">Submit</button>
             </div>
           </form>
       </header>
-      <section class="feedbacks">
-        <section tabindex="0" class="feedback">
-          <div class="feedback__container">
-            <button class="feedback__vote">
-              <i class="fas fa-sort-up feedback__upvote"></i>
-              <span class="feedback__count">593</span>
-            </button>
-            <div class="feedback__initial-bck">
-              <p class="feedback__initial">S</p>
-            </div>
-            <div class="feedback__message-wrapper">
-              <p class="feedback__company">Starbucks</p>
-              <p class="feedback__message">
-                I really wish #Starbucks would use wrappers for hot drinks as a
-                standart, i keep burning my hands an am tired of bothering the 
-                employee.
-              </p>
-            </div>
-            <p class="feedback__time">4d</p>
-        </div>
-        </section>
-        <section tabindex="0" class="feedback">
-          <div class="feedback__container">
-            <button class="feedback__vote">
-              <i class="fas fa-sort-up feedback__upvote"></i>
-              <span class="feedback__count">422</span>
-            </button>
-            <div class="feedback__initial-bck" style="background-color: #505da6;">
-              <p class="feedback__initial">N</p>
-            </div>
-            <div class="feedback__message-wrapper">
-              <p class="feedback__company">Netflix</p>
-              <p class="feedback__message">
-                Since yday on mobile #netflix keeps bufferig the video, it keeps 
-                happening even when i redownload the app. I'm in an area with decent internet connection
-              </p>
-            </div>
-            <p class="feedback__time">5d</p>
-          </div>
-        </section>
-        <section tabindex="0" class="feedback">
-          <div class="feedback__container">
-            <button class="feedback__vote">
-              <i class="fas fa-sort-up feedback__upvote"></i>
-              <span class="feedback__count">145</span>
-            </button>
-            <div class="feedback__initial-bck" style="background-color: #508ba6;">
-              <p class="feedback__initial">A</p>
-            </div>
-            <div class="feedback__message-wrapper">
-              <p class="feedback__company">Amazon</p>
-              <p class="feedback__message">
-                Since yday on mobile #netflix keeps bufferig the video, it keeps 
-                happening even when i redownload the app. I'm in an area with decent internet connection
-              </p>
-            </div>
-            <p class="feedback__time">3d</p>
-          </div>
-        </section>
-      </section>
+      <ol class="feedbacks">
+        <li tabindex="0" class="feedback">
+          <button class="upvote">
+            <i class="fas fa-sort-up upvote__icon"></i>
+            <span class="upvote__count">593</span>
+          </button>
+          <p class="feedback__initial">S</p>
+          <section class="feedback__content">
+            <p class="feedback__company">Starbucks</p>
+            <p class="feedback__text">
+              I really wish #Starbucks would use wrappers for hot drinks as a
+              standart, i keep burning my hands an am tired of bothering the 
+              employee.
+            </p>
+          </section>
+          <p class="feedback__date">4d</p>
+        </li>
+        <li tabindex="0" class="feedback">
+          <button class="upvote">
+            <i class="fas fa-sort-up upvote__icon"></i>
+            <span class="upvote__count">422</span>
+          </button>
+          <p class="feedback__initial">N</p>
+          <section class="feedback__content">
+            <p class="feedback__company">Netflix</p>
+            <p class="feedback__text">
+              Since yday on mobile #netflix keeps bufferig the video, it keeps 
+              happening even when i redownload the app. I'm in an area with decent internet connection
+            </p>
+          </section>
+          <p class="feedback__date">5d</p>
+        </li>
+        <li tabindex="0" class="feedback">
+          <button class="upvote">
+            <i class="fas fa-sort-up upvote__icon"></i>
+            <span class="upvote__count">145</span>
+          </button>
+          <p class="feedback__initial">A</p>
+          <section class="feedback__content">
+            <p class="feedback__company">Amazon</p>
+            <p class="feedback__text">
+              Since yday on mobile #netflix keeps bufferig the video, it keeps 
+              happening even when i redownload the app. I'm in an area with decent internet connection
+            </p>
+          </section>
+          <p class="feedback__date">3d</p>
+        </li>
+        <div class="spinner"></div>
+      </ol>
+      
     </main>
-    <section class="hashtags">
-      <button class="button">
-        #Nike
-      </button>
-      <button class="button">
-        #Starbucks
-      </button>
-      <button class="button">
-        #Netflix
-      </button>
-      <button class="button">
-        #Amazon
-      </button>
-      <button class="button">
-        #Microsoft
-      </button>
-      <button class="button">
-        #Adidas
-      </button>
-      <button class="button">
-        #McDonald's
-      </button>
-    </section>
+    <ul class="hashtags">
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Nike
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Starbucks
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Netflix
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Amazon
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Microsoft
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #Adidas
+        </button>
+      </li>
+      <li class="hashtags__item">
+        <button class="hashtag">
+          #McDonald's
+        </button>
+      </li>
+    </ul>
   </div>
   <script src="index.js"></script>
 </body>
