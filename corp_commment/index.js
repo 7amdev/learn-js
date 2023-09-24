@@ -16,9 +16,25 @@ const textarea_input_handler = function (event) {
 textarea_el.addEventListener('input', textarea_input_handler);
 
 // FORM COMPONENT
+const show_form_submit_status = function (form_status) {
+  const status = ( 
+    form_status === 'valid' 
+    ? 'form--valid' 
+    : (
+      form_status === 'invalid' 
+      ? 'form--invalid'
+      : ''
+    )
+  );
+
+  form_el.classList.add(status);
+  setTimeout(function () {
+    form_el.classList.remove(status);
+  }, 2000);
+};
 const form_submit_handler = function (event) {
   event.preventDefault();
-  
+
   form_submit_el.disabled = true;
 
   const textarea_value  = textarea_el.value;
@@ -31,21 +47,14 @@ const form_submit_handler = function (event) {
   if (!company_hashtag) form_is_valid = false;
   
   if (!form_is_valid) {
-    form_el.classList.add('form--invalid');
-    setTimeout(function () {
-      form_el.classList.remove('form--invalid');
-    }, 2000);
-
+    show_form_submit_status('invalid');
+  
     form_submit_el.disabled = false;
     textarea_el.focus();
     return;
   }
 
-  form_el.classList.add('form--valid');
-  setTimeout(function () {
-    form_el.classList.remove('form--valid');
-  }, 2000);
-
+  show_form_submit_status('valid');
     
   const feedback = {
     company_name: company_hashtag.slice(1),
