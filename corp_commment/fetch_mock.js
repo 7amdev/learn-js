@@ -39,7 +39,9 @@ const fetch_mock = function (url, options = {}) {
   return new Promise(function (resolve, reject) {
     let response;
 
-    if (!data) throw new Error('Provide data attribute for POST method.');
+    if (method === 'POST' && !data) 
+      reject('Provide data attribute for POST method.');
+      // throw new Error('Provide data attribute for POST method.');
 
     if (method === 'GET') {
       response = {

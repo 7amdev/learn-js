@@ -4,6 +4,7 @@ const textarea_el = document.querySelector('.form__textarea');
 const form_count_el = document.querySelector('.form__count');
 const form_submit_el = document.querySelector('.form__submit');
 const feedbacks_el = document.querySelector('.feedbacks');
+const spinner_el  = document.querySelector('.spinner');
 const characters_limit = 150;
 
 
@@ -105,3 +106,37 @@ const form_submit_handler = function (event) {
 };
 
 form_el.addEventListener('submit', form_submit_handler);
+
+// FEEDBACK-LIST COMPONENT
+fetch_mock('./feedbacks')
+.then(function (response) {
+  return response.json();
+})  
+.then(function (feedbacks) {
+  spinner_el.remove();
+  
+  feedbacks.forEach(function (feedback) {
+    const days_ago = Math.floor((Date.now() - new Date(feedback.date)) / (1000 * 60 * 60 * 24));
+    
+    const feedback_markup = 
+      `<li tabindex="0" class="feedback">
+          <button class="upvote">
+            <i class="fas fa-sort-up upvote__icon"></i>
+            <span class="upvote__count">${feedback.votes}</span>
+          </button>
+          <p class="feedback__initial">${feedback.company.charAt(1).toUpperCase()}</p>
+          <section class="feedback__content">
+            <p class="feedback__company">${feedback.company.toUpperCase()}</p>
+            <p class="feedback__text">
+            ${feedback.text}
+            </p>
+          </section>
+          <p class="feedback__date">${days_ago < 1 ? 'new' : days_ago}d</p>
+        </li>`;
+
+    feedbacks_el.insertAdjacentHTML('beforeend', feedback_markup);
+  });
+})
+.catch(function (error) {
+  console.log(error);
+});
