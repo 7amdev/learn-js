@@ -57,7 +57,8 @@ const form_submit_handler = function (event) {
   show_form_submit_status('valid');
     
   const feedback = {
-    company_name: company_hashtag.slice(1),
+    company: company_hashtag.slice(1),
+    text: textarea_value,
     votes: 0,
     date: Date.now()
   };
