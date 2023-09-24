@@ -1,9 +1,9 @@
 // GLOBALS
-const feedbacks = []; 
 const form_el = document.querySelector('.form');
 const textarea_el = document.querySelector('.form__textarea');
 const form_count_el = document.querySelector('.form__count');
 const form_submit_el = document.querySelector('.form__submit');
+const feedbacks_el = document.querySelector('.feedbacks');
 const characters_limit = 150;
 
 
@@ -64,19 +64,44 @@ const form_submit_handler = function (event) {
   };
 
   // POST / REGISTER feedback
-  feedbacks.push(feedback);
+  fetch_mock('./feedbacks', { 
+    method: 'POST', 
+    data: JSON.stringify(feedback)
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (response_data) {
+    const feedback_markup = 
+      `<li tabindex="0" class="feedback">
+          <button class="upvote">
+            <i class="fas fa-sort-up upvote__icon"></i>
+            <span class="upvote__count">${response_data.votes}</span>
+          </button>
+          <p class="feedback__initial">${response_data.company.charAt(1).toUpperCase()}</p>
+          <section class="feedback__content">
+            <p class="feedback__company">${response_data.company.toUpperCase()}</p>
+            <p class="feedback__text">
+            ${response_data.text}
+            </p>
+          </section>
+          <p class="feedback__date">new</p>
+        </li>`;
 
-  // Enable Submit button
-  form_submit_el.disabled = false;
-  // Reset Form 
-  form_el.reset();
-  // Textarea focus
-  textarea_el.focus();
-  // Reset conuter
-  form_count_el.textContent = characters_limit;
+      feedbacks_el.insertAdjacentHTML('beforeend', feedback_markup);
 
-  console.log(feedbacks);
-
+      // Enable Submit button
+      form_submit_el.disabled = false;
+      // Reset Form 
+      form_el.reset();
+      // Textarea focus
+      textarea_el.focus();
+      // Reset conuter
+      form_count_el.textContent = characters_limit;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 };
 
 form_el.addEventListener('submit', form_submit_handler);
