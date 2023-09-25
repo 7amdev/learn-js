@@ -60,6 +60,14 @@ const fetch_mock_m = (function () {
   
       if (method === 'GET') {
         let results = [...feedbacks];
+        const company = url.searchParams.get('company');
+
+        if (company) {
+          results = results.filter(function (result) {
+            return result.company.toLowerCase() === company.toLowerCase();
+          });
+        }
+
         results = results.sort(function (a, b) {
           // descending order
           if (a.votes < b.votes) return 1;

@@ -6,6 +6,7 @@ const form_count_el = document.querySelector('.form__count');
 const form_submit_el = document.querySelector('.form__submit');
 const feedbacks_el = document.querySelector('.feedbacks');
 const spinner_el  = document.querySelector('.spinner');
+const hashtags_el = document.querySelector('.hashtags');
 const characters_limit = 150;
 
 const feedback_append_ui = function (data) {
@@ -91,6 +92,8 @@ const form_submit_handler = function (event) {
     date: Date.now()
   };
 
+  spinner_el.classList.remove('spinner--hide');
+
   // POST / REGISTER feedback
   fetch_mock('http://localhost:5500/feedbacks', { 
     method: 'POST', 
@@ -100,7 +103,9 @@ const form_submit_handler = function (event) {
     return response.json();
   })
   .then(function (response_data) {
+    spinner_el.classList.add('spinner--hide');
 
+    // Append feedback item in UI
     feedback_append_ui(response_data);
 
     // Enable Submit button
@@ -125,7 +130,7 @@ fetch_mock('http://localhost:5500/feedbacks')
   return response.json();
 })  
 .then(function (feedbacks) {
-  spinner_el.remove();
+  spinner_el.classList.add('spinner--hide');
   
   feedbacks.forEach(function (feedback) {
     feedback_append_ui(feedback);
@@ -144,6 +149,9 @@ const feedback_click_handler = function (event) {
   if (!feedback_el) return;
 
   if (upvote_el) {
+    // SHOW spinner / Loading...
+    spinner_el.classList.remove('spinner--hide');
+
     // PUT call
     fetch_mock(`http://localhost:5500/feedbacks/${feedback_id}/upvote`, {
       method: 'PUT'
@@ -152,7 +160,8 @@ const feedback_click_handler = function (event) {
       return response.json();
     })
     .then(function (response_data) {
-      console.log(response_data);
+      // Hide spinner 
+      spinner_el.classList.add('spinner--hide');
 
       // Disable upvote button
       upvote_el.disabled = true;
@@ -171,12 +180,52 @@ const feedback_click_handler = function (event) {
   }
 
   feedback_el.classList.toggle('feedback--expand');
-
-  // Inside feedback-item check id the CLICK event source
-  // is from the btn.upvote or its child.
-
-  // If so, do upvote actions and unShow the icon 
-  // If not, expand feedback item heigth
 };
 
 feedbacks_el.addEventListener('click', feedback_click_handler);
+
+
+// HASHTAG COMPONENT
+const hashtag_click_handler = function (event) {
+  const clicked_el = event.target;
+  const is_hashtag_btn = clicked_el.classList.contains('hashtag');
+
+  if (!is_hashtag_btn) return;
+
+  const company_hashtag = clicked_el.textContent.trim();
+  const company = company_hashtag.slice(1);
+  const query = new URLSearchParams();
+  let url;
+
+  query.append('company', company);
+  
+  if (clicked_el.classList.contains('hashtag--active')) 
+    url = 'http://localhost:5500/feedbacks';
+  else 
+    url = `http://localhost:5500/feedbacks?${ query.toString() }`;
+
+  clicked_el.blur();
+  clicked_el.classList.toggle('hashtag--active');
+
+  spinner_el.classList.remove('spinner--hide');
+
+  fetch_mock(url)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (feedback_list) {
+    spinner_el.classList.add('spinner--hide');
+
+    feedbacks_el.querySelectorAll('.feedback').forEach(function (feedback_el) {
+      feedback_el.remove();
+    });
+    feedback_list.forEach(function (feedback) {
+      feedback_append_ui(feedback);
+    });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+hashtags_el.addEventListener('click', hashtag_click_handler);

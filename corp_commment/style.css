@@ -345,6 +345,10 @@ ol {
   transform: scale(1.1);
   color: #fff;
 }
+.hashtag--active {
+  transform: scale(1.1);
+  color: #fff;
+}
 .hashtag::selection {
   background-color: rgba(255, 255, 255, .1);
 }
@@ -363,4 +367,7 @@ ol {
   border-bottom: 7px solid #e2e7e9;
   border-left: 7px solid #ccd1d3;
   animation: spinner 1s infinite linear;
+}
+.spinner--hide {
+  display: none;
 }
