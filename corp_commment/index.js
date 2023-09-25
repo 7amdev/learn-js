@@ -7,6 +7,31 @@ const feedbacks_el = document.querySelector('.feedbacks');
 const spinner_el  = document.querySelector('.spinner');
 const characters_limit = 150;
 
+const feedback_append_ui = function (data) {
+  const { votes, text } = data;
+  const company_name = data.company.toUpperCase();
+  const initial = data.company.charAt(1).toUpperCase();
+  const days_ago = Math.floor((Date.now() - new Date(data.date)) / (1000 * 60 * 60 * 24));
+
+  const markup = (
+    `<li tabindex="0" class="feedback">
+      <button class="upvote">
+        <i class="fas fa-sort-up upvote__icon"></i>
+        <span class="upvote__count">${votes}</span>
+      </button>
+      <p class="feedback__initial">${initial}</p>
+      <section class="feedback__content">
+        <p class="feedback__company">${company_name}</p>
+        <p class="feedback__text">
+        ${text}
+        </p>
+      </section>
+      <p class="feedback__date">${days_ago < 1 ? 'new' : `${days_ago}d`}</p>
+    </li>`
+  );
+
+  feedbacks_el.insertAdjacentHTML('beforeend', markup);
+};
 
 // COUNTER COMPONENT
 const textarea_input_handler = function (event) {
@@ -73,32 +98,17 @@ const form_submit_handler = function (event) {
     return response.json();
   })
   .then(function (response_data) {
-    const feedback_markup = 
-      `<li tabindex="0" class="feedback">
-          <button class="upvote">
-            <i class="fas fa-sort-up upvote__icon"></i>
-            <span class="upvote__count">${response_data.votes}</span>
-          </button>
-          <p class="feedback__initial">${response_data.company.charAt(1).toUpperCase()}</p>
-          <section class="feedback__content">
-            <p class="feedback__company">${response_data.company.toUpperCase()}</p>
-            <p class="feedback__text">
-            ${response_data.text}
-            </p>
-          </section>
-          <p class="feedback__date">new</p>
-        </li>`;
 
-      feedbacks_el.insertAdjacentHTML('beforeend', feedback_markup);
+    feedback_append_ui(response_data);
 
-      // Enable Submit button
-      form_submit_el.disabled = false;
-      // Reset Form 
-      form_el.reset();
-      // Textarea focus
-      textarea_el.focus();
-      // Reset conuter
-      form_count_el.textContent = characters_limit;
+    // Enable Submit button
+    form_submit_el.disabled = false;
+    // Reset Form 
+    form_el.reset();
+    // Textarea focus
+    textarea_el.focus();
+    // Reset conuter
+    form_count_el.textContent = characters_limit;
   })
   .catch(function (error) {
     console.log(error);
@@ -116,25 +126,7 @@ fetch_mock('./feedbacks')
   spinner_el.remove();
   
   feedbacks.forEach(function (feedback) {
-    const days_ago = Math.floor((Date.now() - new Date(feedback.date)) / (1000 * 60 * 60 * 24));
-    
-    const feedback_markup = 
-      `<li tabindex="0" class="feedback">
-          <button class="upvote">
-            <i class="fas fa-sort-up upvote__icon"></i>
-            <span class="upvote__count">${feedback.votes}</span>
-          </button>
-          <p class="feedback__initial">${feedback.company.charAt(1).toUpperCase()}</p>
-          <section class="feedback__content">
-            <p class="feedback__company">${feedback.company.toUpperCase()}</p>
-            <p class="feedback__text">
-            ${feedback.text}
-            </p>
-          </section>
-          <p class="feedback__date">${days_ago < 1 ? 'new' : days_ago}d</p>
-        </li>`;
-
-    feedbacks_el.insertAdjacentHTML('beforeend', feedback_markup);
+    feedback_append_ui(feedback);
   });
 })
 .catch(function (error) {
